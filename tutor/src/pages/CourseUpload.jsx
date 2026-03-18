@@ -298,7 +298,7 @@ const handleSubmit = async (e) => {
           >
             <FiVideo size={40} className="text-blue-600 mb-3" />
             <p className="text-gray-600">Click to upload lesson videos</p>
-                 {/* {
+                 {
                   videoPreview && (
                     <video
                       src={videoPreview}
@@ -307,7 +307,7 @@ const handleSubmit = async (e) => {
                       className="mt-4 rounded-lg shadow"
                     ></video>
                   )
-                } */}
+                }
           </div>
         </div>
         {/* MODULE BUILDER */}

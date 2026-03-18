@@ -1,4 +1,4 @@
-from sqlalchemy import Column,Integer,String,Text,Date,ForeignKey,Time
+from sqlalchemy import Column,Integer,String,Text,Date,ForeignKey,Time,DateTime,Float
 from database import Base
 from sqlalchemy.orm import relationship
 from datetime import date,datetime
@@ -6,7 +6,7 @@ from datetime import date,datetime
 
 
 class Users(Base):
-    __tablename__ = 'users'
+    __tablename__ = 'user'
 
     user_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     fullname = Column(String(50), nullable=False)
@@ -59,7 +59,7 @@ class Student(Base):
     __tablename__ = 'student'
 
     stud_id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.user_id"))
+    user_id = Column(Integer, ForeignKey("user.user_id"))
 
     age = Column(Integer)
     education = Column(String(50))
@@ -78,7 +78,7 @@ class Student(Base):
 class Contact(Base):
     __tablename__ = "contact"
     contact_id = Column(Integer,primary_key=True,autoincrement=True) 
-    user_id = Column(Integer,ForeignKey("users.user_id"))
+    user_id = Column(Integer,ForeignKey("user.user_id"))
     message = Column(Text)
     created_at = Column(Date, default=date.today)
 
@@ -101,3 +101,13 @@ class Course(Base):
       course_price=Column(Integer,nullable=False)
       course_date=Column(Date,default=date.today)
       course_time=Column(Time,default=datetime.now().time)
+      created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class VideoProgress(Base):
+    __tablename__ = "videoprogress"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, nullable=False)
+    course_id = Column(Integer, nullable=False)
+    last_position = Column(Float, nullable=False)

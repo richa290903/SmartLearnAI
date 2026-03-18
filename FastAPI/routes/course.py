@@ -9,20 +9,28 @@ from pydantic import Field
 import shutil
 from database import get_db
 import os
+import subprocess
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 router = APIRouter(tags=["Course"])
 
 
-THUMBNAIL_DIR = "./images/Thumbnail"
+# THUMBNAIL_DIR =r"Z:\\Thumbnail"
+# os.makedirs(THUMBNAIL_DIR, exist_ok=True)
+
+
+# UPLOAD_DIR1="images/Coursevideo"
+# os.makedirs(UPLOAD_DIR1,exist_ok=True)
+
+# UPLOAD_DIR1=r"Z:\\Coursevideo"
+# os.makedirs(UPLOAD_DIR1,exist_ok=True)
+
+THUMBNAIL_DIR = r"Z:\Thumbnail"
 os.makedirs(THUMBNAIL_DIR, exist_ok=True)
 
-
-UPLOAD_DIR1="images/Coursevideo"
-os.makedirs(UPLOAD_DIR1,exist_ok=True)
-
-
+UPLOAD_DIR1 = r"Z:\Coursevideo"
+os.makedirs(UPLOAD_DIR1, exist_ok=True)
 
 @router.post("/course_upload")
 def course_upload(
@@ -47,7 +55,9 @@ def course_upload(
 
     with open(video_path, "wb") as buffer:
         shutil.copyfileobj(video.file, buffer)
+    # output_mpd=f"{UPLOAD_DIR1}/manifest.mpd"
 
+   
     db_course = models.Course(
         course_title=course_title,
         category=category,
@@ -65,9 +75,82 @@ def course_upload(
     db.refresh(db_course)
 
     return {
-        "message": "Course uploaded successfully",
+        "message": "Course uploaded successfully", "Video uploaded and converted"
         "course_id": db_course.course_id
     }
+
+# @router.post("/course_upload")
+# def course_upload(
+#     course_title: str = Form(...),
+#     category: str = Form(...),
+#     skill_level: str = Form(...),
+#     prerequisites: str = Form(...),
+#     description: str = Form(...),
+#     tag: str = Form(...),
+#     course_price: str = Form(...),
+#     thumbnail: UploadFile = File(...),
+#     video: UploadFile = File(...),
+#     db: Session = Depends(get_db)
+# ):
+
+#     # 1️⃣ Generate unique names
+#     import uuid
+#     unique_thumbnail = f"{uuid.uuid4()}_{thumbnail.filename}"
+#     unique_video = f"{uuid.uuid4()}_{video.filename}"
+
+#     # 2️⃣ Save THUMBNAIL
+#     thumb_path = os.path.join(THUMBNAIL_DIR, unique_thumbnail)
+#     with open(thumb_path, "wb") as buffer:
+#         shutil.copyfileobj(thumbnail.file, buffer)
+
+#     # 3️⃣ Save RAW VIDEO before converting
+#     video_path = os.path.join(UPLOAD_DIR1, unique_video)
+#     with open(video_path, "wb") as buffer:
+#         shutil.copyfileobj(video.file, buffer)
+
+#     # 4️⃣ DASH manifest output path
+#     manifest_name = f"{uuid.uuid4()}_manifest.mpd"
+#     manifest_path = os.path.join(DASH_FOLDER, manifest_name)
+
+#     # 5️⃣ FFmpeg Convert to DASH
+#     command = [
+#         "ffmpeg",
+#         "-i", video_path,
+#         "-map", "0",
+#         "-codec:v", "libx264",
+#         "-codec:a", "aac",
+#         "-f", "dash",
+#         manifest_path
+#     ]
+
+#     subprocess.run(command)
+
+#     # 6️⃣ Save to Database
+#     db_course = models.Course(
+#         course_title=course_title,
+#         category=category,
+#         skill_level=skill_level,
+#         prerequisites=prerequisites,
+#         description=description,
+#         tag=tag,
+#         course_price=course_price,
+#         thumbnail=unique_thumbnail,   # ⬅ Store unique name
+#         video=unique_video,           # ⬅ Store unique raw video
+#         manifest=manifest_name        # ⬅ Store DASH manifest
+#     )
+
+#     db.add(db_course)
+#     db.commit()
+#     db.refresh(db_course)
+
+#     # 7️⃣ Correct JSON response
+#     return {
+#         "message": "Course uploaded & processed successfully",
+#         "thumbnail": unique_thumbnail,
+#         "video": unique_video,
+#         "manifest": manifest_name,
+#         "course_id": db_course.course_id
+#     }
 
 @router.get("/course_display")
 async def display(db:Session=Depends(get_db)):

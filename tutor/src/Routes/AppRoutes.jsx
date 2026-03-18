@@ -6,6 +6,7 @@ import CourseUpload from "../pages/CourseUpload";
 import SettingPage from "../pages/SettingPage";
 import Dashboard from "../pages/Dashboard";
 import CourseDatail from "../pages/CourseDatail";
+import Student from "../pages/Student";
 
 function AppRoutes() {
   return (
@@ -17,6 +18,7 @@ function AppRoutes() {
         <Route path="/courseupload" element={<CourseUpload/>}></Route>
         <Route path="/settingpage" element={<SettingPage/>}></Route>
         <Route path="/dashboard" element={<Dashboard/>}></Route>
+        <Route path="/student" element={<Student/>}></Route>
       </Routes>
   );
 }

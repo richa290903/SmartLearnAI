@@ -82,7 +82,7 @@ function Course() {
 
                   <div className="flex items-center gap-1 mt-1">
                     <span className="font-bold text-yellow-600 text-sm">
-                      ⭐ {data.category || "4.7"}
+                       {data.category || "4.7"}
                     </span>
                   </div>
 

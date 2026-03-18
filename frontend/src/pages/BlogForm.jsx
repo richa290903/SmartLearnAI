@@ -1,11 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Api from "../services/Api";  
-<<<<<<< HEAD
- 
-=======
-import { supabase } from "../supabase"; 
->>>>>>> a34479f8775bb2e966ef613789c7933da6d02f84
 
 function BlogForm() {
 
@@ -17,7 +12,6 @@ function BlogForm() {
   const [imagePreview, setImagePreview] = useState("");
   const navigate = useNavigate();
 
-<<<<<<< HEAD
   const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -40,78 +34,7 @@ function BlogForm() {
     await Api.post("/blog", formData,{
       headers:{"Content-Type":"multipart/form-data"}});
 
-=======
-  // ---------- SUPABASE UPLOAD FUNCTION ----------
-const uploadImage = async (file) => {
-  const fileName = file.name;
-
-  const { error } = await supabase.storage
-    .from("blogimages")
-    .upload(fileName, file);
-
-  if (error) {
-    alert(error.message);
-    return null;
-  }
-
-  return fileName;   // store relative path
-};
-
-  // ---------- SUBMIT FORM ----------
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   if (!blogimage) {
-  //     alert("Please select image");
-  //     return;
-  //   }
-
-  //   // Step 1: Upload to Supabase
-  //   const imageUrl = await uploadImage(blogimage);
-  //   if (!imageUrl) return;
-
-  //   // Step 2: Send only URL to backend
-  //   const payload = {
-  //     blogername,
-  //     blogerrole,
-  //     blogimage: imageUrl,
-  //     blogtitle,
-  //     blogdescription,
-  //   };
-
-  //   try {
-  //     await Api.post("/blog", payload);
-  //     alert("Inserted successfully!");
-  //     navigate("/blog");
-  //   } catch (error) {
-  //     console.error(error.response?.data);
-  //     alert("Insert Failed");
-  //   }
-  // };
-
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  if (!blogimage) {
-    alert("Please select image");
-    return;
-  }
-
-  const imageUrl = await uploadImage(blogimage);
-  if (!imageUrl) return;
-
-  // ✅ Create FormData
-  const formData = new FormData();
-  formData.append("blogername", blogername);
-  formData.append("blogerrole", blogerrole);
-  formData.append("blogtitle", blogtitle);
-  formData.append("blogdescription", blogdescription);
-  formData.append("blogimage", imageUrl); // only filename string
-
-  try {
-    await Api.post("/blog", formData);   // 👈 IMPORTANT
->>>>>>> a34479f8775bb2e966ef613789c7933da6d02f84
-    alert("Inserted successfully!");
+ alert("Inserted successfully!");
     navigate("/blog");
   } catch (error) {
     console.error(error.response?.data);

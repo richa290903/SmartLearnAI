@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from datetime import datetime
 class CourseRequest(BaseModel):
     course_title: str
     category: str
@@ -10,3 +10,5 @@ class CourseRequest(BaseModel):
     thumbnail: str   # URL or local filename
     video: str       # URL or local filename
     course_price: str
+    created_at: datetime
+    

@@ -32,11 +32,7 @@
         )
     : [];
 
-<<<<<<< HEAD
     // const SUPABASE_BASE = "https://rwompwlcjbigfbnovqxu.supabase.co/storage/v1/object/public/blogimages/";
-=======
-    const SUPABASE_BASE = "https://rwompwlcjbigfbnovqxu.supabase.co/storage/v1/object/public/blogimages/";
->>>>>>> a34479f8775bb2e966ef613789c7933da6d02f84
   
   return (
         <div className="min-h-screen bg-gray-50">
@@ -113,11 +109,7 @@
                 
                 <div className="relative w-full h-[500px] overflow-hidden">
                  <img
-<<<<<<< HEAD
                   src={"http://localhost:8000/BlogImages/"+blog.blogimage}
-=======
-                  src={SUPABASE_BASE + blog.blogimage}
->>>>>>> a34479f8775bb2e966ef613789c7933da6d02f84
                   alt={blog.blogtitle}
                   className="absolute inset-0 w-[400px] h-[500px] object-cover transition duration-500 group-hover:scale-110"
                   />
@@ -137,7 +129,6 @@
                 </div> 
                 
                 <div className="p-6">
-<<<<<<< HEAD
                   <span className="text-sm text-datkblue-600 font-semibold">
                     {blog.blogerrole}
                   </span>
@@ -154,32 +145,6 @@
                         month: "long",
                         year: "numeric"
                   })}</p>
-=======
-                          <span className="text-sm text-datkblue-600 font-semibold">
-                            {blog.blogerrole}
-                          </span>
-
-                          <h2 className="text-xl font-bold mt-1">
-                            {blog.blogtitle}
-                          </h2>
-                          
-                          <p className="text-gray-600 mt-2" >
-                            {blog.blogdescription.slice(0,30)}....
-                          </p>
-                          <br></br>
-                          <h5 class=" font-bold text-gray-900 ">{blog.blogername}</h5>
-                          <p className="text-bold">{new Date(blog.blogdate).toLocaleDateString("en-GB", {
-                            day: "numeric",
-                            month: "long",
-                            year: "numeric"
-                          })}</p>
-                        
-                          
-                        {/* <div className="flex justify-between items-center mt-4 text-sm text-gray-500">
-                            <span>By {blog.author}</span>
-                            <span>{blog.date}</span> 
-                        </div> */}
->>>>>>> a34479f8775bb2e966ef613789c7933da6d02f84
               </div>
               </div>
               </Link>

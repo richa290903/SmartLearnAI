@@ -36,11 +36,8 @@ function BlogDetail() {
            {/* <!-- Blog Image --> */}
           <span>
             <div class="image-holder"  className="w-[400px] h-[600px] overflow-hidden rounded-xlw" >
-<<<<<<< HEAD
               <img src={"http://localhost:8000/BlogImages/"+blog.blogimage}
-=======
-              <img src={`https://rwompwlcjbigfbnovqxu.supabase.co/storage/v1/object/public/blogimages/${blog.blogimage}`} 
->>>>>>> a34479f8775bb2e966ef613789c7933da6d02f84
+
                   alt="Blog Image"
                   class="img-set"
                   className="w-[400px] h-[600px] overflow-hidden rounded-xl"/>

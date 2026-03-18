@@ -15,7 +15,7 @@ function SideBar() {
     { icon: <MdDashboard />, label: "Dashboard", path: "/dashboard" },
     { icon: <MdOndemandVideo />, label: "My Courses", path: "/" },
     { icon: <FaPlusCircle />, label: "Create Course", path: "/courseupload" },
-    { icon: <FaUsers />, label: "Students", path: "/" },
+    { icon: <FaUsers />, label: "Students", path: "/student" },
     { icon: <MdMessage />, label: "Messages", path: "/qnapage"},
     { icon: <IoSettingsSharp />, label: "Settings", path: "/settingpage" },
   ];
