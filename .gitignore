@@ -1,0 +1,17 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# OS
+.DS_Store
+
+
+FastAPI/SharedVideos/
+*.mp4
+*.avi
+*.mov
+*.webm
