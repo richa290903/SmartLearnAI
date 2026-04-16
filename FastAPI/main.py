@@ -11,6 +11,14 @@ from routes import blog,users
 from fastapi.staticfiles import StaticFiles
 from routes import stud_profile,course,contact,progress
 import os
+from dotenv import load_dotenv
+from routes import module
+from routes import blog,users
+from routes import payment
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+
 
 origins = [
     "http://localhost:5173",
@@ -34,9 +42,11 @@ app.include_router(stud_profile.router)
 app.include_router(course.router)
 app.include_router(contact.router)
 app.include_router(progress.router)
+app.include_router(module.router)
+app.include_router(payment.router)
 
 #Blog Image Folder
-UPLOAD_DIR=r"\\192.168.254.96\SharedVideos\BlogImages"
+UPLOAD_DIR=r"\\192.168.41.96\SharedVideos\BlogImages"
 os.makedirs(UPLOAD_DIR,exist_ok=True)
 app.mount(
     "/BlogImages", 
@@ -80,6 +90,15 @@ app.mount(
     StaticFiles(directory=VIDEO_DIR),
     name="Coursevideo"
 )
+
+MODULE_VIDEO_DIR = r"Z:\ModuleVideos"
+MODULE_THUMB_DIR = r"Z:\ModuleThumbnail"
+os.makedirs(MODULE_VIDEO_DIR, exist_ok=True)
+os.makedirs(MODULE_THUMB_DIR, exist_ok=True)
+
+app.mount("/ModuleVideos", StaticFiles(directory=MODULE_VIDEO_DIR), name="ModuleVideos")
+app.mount("/ModuleThumbnail", StaticFiles(directory=MODULE_THUMB_DIR), name="ModuleThumbnail")
+
 
 # create all database tables
 models.Base.metadata.create_all(bind=engine)

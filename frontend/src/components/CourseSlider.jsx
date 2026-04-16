@@ -39,8 +39,8 @@ export default function CourseSlider() {
   }, [videos]);
 
   return (
-    <div className="w-full bg-gray-100 p-6">
-      <h2 className="text-2xl font-bold text-center mb-4">
+    <div className="w-full bg-gray-100 dark:bg-gray-800 p-6">
+      <h2 className="text-2xl font-bold text-center mb-4 text-black dark:text-white">
         Trending Courses
       </h2>
 
@@ -53,7 +53,7 @@ export default function CourseSlider() {
           //       key={item.course_id}
           //       className="block bg-white shadow-md rounded-xl overflow-hidden hover:shadow-xl transition duration-300 cursor-pointer"
               >
-          <div key={i} className="min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden">
+          <div key={i} className="min-w-[280px] bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden">
 
             <div className="relative">
               <img
@@ -68,18 +68,18 @@ export default function CourseSlider() {
             </div>
 
             <div className="p-3">
-              <h3 className="font-semibold">{item.course_title}</h3>
+              <h3 className="font-semibold text-black dark:text-white">{item.course_title}</h3>
 
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-gray-300">
                 {item.desc}
               </p>
 
               <div className="flex justify-between mt-2 text-sm">
-                <span>{item.skill_level}</span>
-                <span className="text-gray-500">{item.author}</span>
+                <span className="text-black dark:text-white">{item.skill_level}</span>
+                <span className="text-gray-500 dark:text-gray-400">{item.author}</span>
               </div>
 
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 {item.prerequisites}
               </p>
             </div>

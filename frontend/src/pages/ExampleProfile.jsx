@@ -201,7 +201,7 @@ function ExampleProfile() {
   ];
 
   return (
-  <div className="flex min-h-screen bg-gray-100">
+  <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
     
     {/* Sidebar */}
     <Sidebar1 />
@@ -209,14 +209,14 @@ function ExampleProfile() {
     {/* Main Content */}
     <div className="flex-1 flex justify-center">
       <motion.div
-        className="w-full max-w-7xl p-8 lg:p-12 bg-gradient-to-br from-indigo-50 to-purple-50 min-h-screen"
+        className="w-full max-w-7xl p-8 lg:p-12 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 min-h-screen"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
         {/* Header */}
         <div className="mb-12 text-center">
-          <h1 className="text-3xl lg:text-4xl font-bold text-gray-700">
+          <h1 className="text-3xl lg:text-4xl font-bold text-gray-700 dark:text-white">
             User Profile Dashboard
           </h1>
           <p className="text-gray-500 mt-3">

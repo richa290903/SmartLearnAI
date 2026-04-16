@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SideBar from "../components/SideBar";
+import { useTheme } from "../context/ThemeContext";
 import Api from "../services/Api";
 import {
   FiUpload,
@@ -12,6 +13,7 @@ function CourseUpload()
 {
   const [modules, setModules] = useState([]);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const { theme } = useTheme();
   const aiTagSuggestions = ["python", "machine learning", "ai", "react", "nodejs"];
   const [course_title,setCourseTitle]=useState();
   const[ category,setCategory]=useState();
@@ -84,13 +86,13 @@ const handleSubmit = async (e) => {
 
   // console.log("skill_level", skill_level);
   return (
-  <div className="flex-1 flex justify-center px-6">
+  <div className={`flex-1 flex justify-center px-6 min-h-screen transition-colors duration-300 ${theme === "dark" ? "bg-slate-900" : "bg-white"}`}>
             <SideBar />
-      <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl p-10 border border-gray-200">
+      <div className={`w-full max-w-5xl rounded-2xl shadow-xl p-10 border ${theme === "dark" ? "bg-slate-950 text-slate-100 border-gray-700" : "bg-white border-gray-200"}`}>
 
         {/* HEADER */}
-        <h1 className="text-3xl font-bold text-blue-700 mb-2">Upload New Course</h1>
-        <p className="text-gray-500 mb-10">Fill all details to publish your course</p>
+        <h1 className={`text-3xl font-bold mb-2 ${theme === "dark" ? "text-blue-400" : "text-blue-700"}`}>Upload New Course</h1>
+        <p className={`mb-10 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Fill all details to publish your course</p>
 
         {/* FORM */}
         <form  onSubmit={handleSubmit}>
@@ -98,21 +100,20 @@ const handleSubmit = async (e) => {
 
               {/* Title */}
               <div className="group">
-                <label className="font-semibold text-gray-700 mb-2 block">Course Title</label>
+                <label className={`font-semibold mb-2 block ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>Course Title</label>
                 <input
                   type="text"
                   placeholder="Enter course title"
-                  className="w-full p-3 rounded-lg border border-gray-300 
-                  focus:ring-2 focus:ring-blue-500 transition-all outline-none"
+                  className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-blue-500 transition-all outline-none ${theme === "dark" ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400" : "border-gray-300 bg-white text-black placeholder-gray-500"}`}
                   onChange={(e)=>setCourseTitle(e.target.value)}
                 />
               </div>
 
               {/* Category */}
           <div className="group">
-              <label className="font-semibold text-gray-700 mb-2 block">Category</label>
+              <label className={`font-semibold mb-2 block ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>Category</label>
               <select onChange={(e)=>setCategory(e.target.value)} value={category}
-                className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none" 
+                className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-blue-500 outline-none ${theme === "dark" ? "bg-gray-700 border-gray-600 text-white" : "border-gray-300 bg-white text-black"}`}
               >
                 <option value="" disabled selected >Select Category</option>
                 <option value="Development">Development</option>
@@ -127,11 +128,11 @@ const handleSubmit = async (e) => {
 
           {/* Skill Level */}
           <div className="group">
-            <label className="font-semibold text-gray-700 mb-2 block">Skill Level</label>
+            <label className={`font-semibold mb-2 block ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>Skill Level</label>
            <select 
               onChange={(e) => setSkillLevel(e.target.value)} 
               value={skill_level}
-              className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
+              className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-blue-500 outline-none ${theme === "dark" ? "bg-gray-700 border-gray-600 text-white" : "border-gray-300 bg-white text-black"}`}
             >
                 <option value="" disabled selected>Select Skill Level</option>
                 <option value="Beginner">Beginner</option>
@@ -143,37 +144,40 @@ const handleSubmit = async (e) => {
 
           {/* Prerequisites */}
           <div className="group">
-            <label className="font-semibold text-gray-700 mb-2 block">Prerequisites</label>
+            <label className={`font-semibold mb-2 block ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>Prerequisites</label>
             <input
               type="text"
               placeholder="Ex: Basic Python knowledge"
-              className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none" onChange={(e)=>setPrerequisites(e.target.value)}
+              className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-blue-500 outline-none ${theme === "dark" ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400" : "border-gray-300 bg-white text-black placeholder-gray-500"}`}
+              onChange={(e)=>setPrerequisites(e.target.value)}
             />
           </div>
           {/* price */}
              <div className="group">
-            <label className="font-semibold text-gray-700 mb-2 block">Price</label>
+            <label className={`font-semibold mb-2 block ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>Price</label>
             <input
               type="text"
               placeholder="Ex:600 rupees"
-              className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none" onChange={(e)=>setCoursePrice(e.target.value)}
+              className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-blue-500 outline-none ${theme === "dark" ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400" : "border-gray-300 bg-white text-black placeholder-gray-500"}`}
+              onChange={(e)=>setCoursePrice(e.target.value)}
             />
           </div>
         </div>
           
         {/* DESCRIPTION */}
         <div className="mt-8 group">
-          <label className="font-semibold text-gray-700 mb-2 block">Description</label>
+          <label className={`font-semibold mb-2 block ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>Description</label>
           <textarea
             rows="5"
             placeholder="Enter full course description..."
-            className="w-full p-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none" onChange={(e)=>setDescription(e.target.value)}
+            className={`w-full p-4 rounded-lg border focus:ring-2 focus:ring-blue-500 outline-none ${theme === "dark" ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400" : "border-gray-300 bg-white text-black placeholder-gray-500"}`}
+            onChange={(e)=>setDescription(e.target.value)}
           ></textarea>
         </div>
 
         {/* TAGS */}
         <div className="mt-8">
-          <label className="font-semibold text-gray-700 mb-2 flex items-center gap-2">
+          <label className={`font-semibold mb-2 flex items-center gap-2 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
             <FiTag /> Tags (AI Suggested)
           </label>
           <input
@@ -310,6 +314,95 @@ const handleSubmit = async (e) => {
                 }
           </div>
         </div>
+        {/* MODULE BUILDER */}
+<div className="mt-10">
+  <label className="font-semibold text-gray-700 mb-3 flex items-center gap-2">
+    Modules & Lessons
+  </label>
+
+  {/* Add Module Button */}
+  <button
+    type="button"
+    onClick={addModule}
+    className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 flex items-center gap-2"
+  >
+    + Add Module
+  </button>
+
+  <div className="mt-4 space-y-5">
+    {modules.map((mod, modIndex) => (
+      <div
+        key={modIndex}
+        className="p-5 rounded-xl border border-gray-300 bg-gray-50 shadow hover:shadow-lg transition"
+      >
+        {/* Module Title */}
+        <div className="flex justify-between items-center">
+          <input
+            type="text"
+            placeholder="Module Title"
+            className="p-2 w-full rounded-lg border border-gray-300"
+            value={mod.title}
+            onChange={(e) => {
+              const updated = [...modules];
+              updated[modIndex].title = e.target.value;
+              setModules(updated);
+            }}
+          />
+
+          {/* Remove Module */}
+          <button
+            type="button"
+            onClick={() => {
+              setModules(modules.filter((_, i) => i !== modIndex));
+            }}
+          >
+            ❌
+          </button>
+        </div>
+
+        {/* Lessons */}
+        <div className="mt-4 pl-3 border-l-4 border-blue-400">
+          {mod.lessons.map((lesson, lessonIndex) => (
+            <div key={lessonIndex} className="mb-3">
+              <input
+                type="text"
+                placeholder="Lesson Title"
+                className="p-2 w-full mb-2 rounded-lg border border-gray-300"
+                value={lesson.title}
+                onChange={(e) => {
+                  const updated = [...modules];
+                  updated[modIndex].lessons[lessonIndex].title = e.target.value;
+                  setModules(updated);
+                }}
+              />
+
+              <input
+                type="text"
+                placeholder="Video URL"
+                className="p-2 w-full rounded-lg border border-gray-300"
+                value={lesson.video}
+                onChange={(e) => {
+                  const updated = [...modules];
+                  updated[modIndex].lessons[lessonIndex].video = e.target.value;
+                  setModules(updated);
+                }}
+              />
+            </div>
+          ))}
+
+          {/* Add Lesson */}
+          <button
+            type="button"
+            onClick={() => addLesson(modIndex)}
+            className="mt-2 px-4 py-1 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600"
+          >
+            + Add Lesson
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
         {/* MODULE BUILDER */}
         {/* <div className="mt-10">
           <label className="font-semibold text-gray-700 mb-3 flex items-center gap-2">

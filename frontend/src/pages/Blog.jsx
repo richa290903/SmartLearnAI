@@ -35,7 +35,7 @@
     // const SUPABASE_BASE = "https://rwompwlcjbigfbnovqxu.supabase.co/storage/v1/object/public/blogimages/";
   
   return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
           {/* Hero */}
             <div className="relative w-full h-[90vh] mt-10">
             
@@ -50,14 +50,18 @@
             {/* <div className="absolute inset-0 bg-black/50"></div> */}
 
             {/* Content */}
-            <div className="relative z-10 flex flex-col  h-full  max-w-2xl text-gray-700 md:text-BLUE-300  ">
+            {/* <div className="relative z-10 flex flex-col  h-full  max-w-2xl text-gray-700   md:text-BLUE-300 dark:!text-white "> */}
+            <div className="relative z-10 flex flex-col h-full max-w-2xl 
+                      text-black 
+                      bg-white/80 dark:bg-gray-800/70 
+                      p-6 rounded-xl backdrop-blur-md">
                 <p className="text-sm uppercase tracking-widest ml-50 mt-40 mb-3" />
-                <h1 className="text-4xl font-bold leading-tight ml-20">
+                <h1 className="text-4xl font-bold leading-tight ml-20 text-black dark:text-white ">
                   Build Skills for the Future.
                   <br />
                 <div>
-                  <span className="">
-                    Learn from industry experts and boost your career with <u className="color-blue-400">SmartLearn.AI </u>
+                  <span className=" text-black dark:!text-black">
+                    Learn from industry experts and boost your career with <u className="color-blue-400 !text-blue-400 text-blue-400 dark:text-blue-400">SmartLearn.AI </u>
                     
                   </span>
                 </div>
@@ -70,7 +74,7 @@
                 </p> */}
                   <div  className="ml-20">
               <Link to="/blogform">
-                <button className="absolute  bg-blue-500 text-white px-6 py-2 rounded-full ">
+                <button className="absolute  bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600">
                     Upload Blog
                 </button>
               </Link>
@@ -80,7 +84,7 @@
           
             </div>
           {/* Top Menu */}
-            <div className="flex border-b mt-5 mb-10">
+            <div className="flex border-b border-gray-200 dark:border-gray-700 mt-5 mb-10">
                   {menuItems.map((item, index) => (
                     <button
                       key={index}
@@ -88,8 +92,8 @@
                       className={`px-6 py-3 text-sm font-medium transition
                         ${
                           active === index
-                            ? "border-b-2 border-purple-600 text-purple-700"
-                            : "text-gray-600 hover:text-black"
+                            ? "border-b-2 border-purple-600 text-purple-700 dark:text-purple-400"
+                            : "text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white"
                         }`}
                     >
                       {item}
@@ -103,7 +107,7 @@
               <Link to={`/blogdetail/${blog.blog_id}`}>
             <div
               key={blog.blog_id}
-                className="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden relative group"
+                className="bg-white dark:bg-gray-800 rounded-2xl shadow hover:shadow-lg transition overflow-hidden relative group"
               >
                 {/* Image */}
                 
@@ -129,18 +133,18 @@
                 </div> 
                 
                 <div className="p-6">
-                  <span className="text-sm text-datkblue-600 font-semibold">
+                  <span className="text-sm text-blue-600 dark:text-blue-400 font-semibold">
                     {blog.blogerrole}
                   </span>
-                  <h2 className="text-xl font-bold mt-1">
+                  <h2 className="text-xl font-bold mt-1 text-black dark:text-white">
                     {blog.blogtitle}
                   </h2>
-                    <p className="text-gray-600 mt-2" >
+                    <p className="text-gray-600 dark:text-gray-300 mt-2" >
                       {blog.blogdescription.slice(0,30)}....
                     </p>
                     <br></br>
-                    <h5 class=" font-bold text-gray-900 ">{blog.blogername}</h5>
-                      <p className="text-bold">{new Date(blog.blogdate).toLocaleDateString("en-GB", {
+                    <h5 className=" font-bold text-gray-900 dark:text-white ">{blog.blogername}</h5>
+                      <p className="text-black dark:text-gray-300">{new Date(blog.blogdate).toLocaleDateString("en-GB", {
                         day: "numeric",
                         month: "long",
                         year: "numeric"

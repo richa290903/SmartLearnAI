@@ -22,10 +22,10 @@ function BlogDetail() {
   // const blog = blogs.find(b => b.id === id);
 
   if (!blog) {
-    return <div className="text-center mt-20">Blog not found</div>;
+    return <div className="text-center mt-20 text-black dark:text-white">Blog not found</div>;
   }
   return (
-    <div className="mx-auto ">
+    <div className="mx-auto bg-white dark:bg-gray-900 min-h-screen">
 
     <div className="w-full  mt-30">
 

@@ -32,7 +32,7 @@ function CoursesPage1() {
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
 
       {/* Sidebar */}
       <div className="w-64 flex-shrink-0">
@@ -40,11 +40,11 @@ function CoursesPage1() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 bg-gradient-to-br from-indigo-50 to-purple-50 p-10">
+      <div className="flex-1 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 p-10">
 
         {/* Header */}
         <div className="mb-10">
-          <h1 className="text-3xl font-bold text-gray-700">
+          <h1 className="text-3xl font-bold text-gray-700 dark:text-white">
             My Learning Courses
           </h1>
           <p className="text-gray-500 mt-2">

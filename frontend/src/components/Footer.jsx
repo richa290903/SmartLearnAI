@@ -1,79 +1,79 @@
 function Footer(){
       return(
-            <div>
-                  <footer class="bg-slate-300">
-                  <div class="mx-auto w-full max-w-screen-xl">
-                        <div class="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
+            <div className="border border-white">
+                  <footer className="bg-slate-300 dark:bg-gray-800">
+                  <div className="mx-auto w-full max-w-screen-xl bg-slate-300 dark:bg-gray-800">
+                        <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
                         <div>
-                              <h2 class="mb-6 text-sm font-semibold text-heading uppercase">Company</h2>
-                              <ul class="text-body font-medium">
-                              <li class="mb-4">
-                                    <a href="#" class=" hover:underline">About</a>
+                              <h2 className="mb-6 text-sm font-semibold text-heading uppercase text-black dark:text-white">Company</h2>
+                              <ul className="text-body font-medium text-black dark:text-gray-300">
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">About</a>
                               </li>
-                              <li class="mb-4">
-                                    <a href="#" class="hover:underline">Careers</a>
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">Careers</a>
                               </li>
-                              <li class="mb-4">
-                                    <a href="#" class="hover:underline">Brand Center</a>
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">Brand Center</a>
                               </li>
-                              <li class="mb-4">
-                                    <a href="#" class="hover:underline">Blog</a>
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">Blog</a>
                               </li>
                               </ul>
                         </div>
                         <div>
-                              <h2 class="mb-6 text-sm font-semibold text-heading uppercase">Help center</h2>
-                              <ul class="text-body font-medium">
-                              <li class="mb-4">
-                                    <a href="#" class="hover:underline">Discord Server</a>
+                              <h2 className="mb-6 text-sm font-semibold text-heading uppercase text-black dark:text-white">Help center</h2>
+                              <ul className="text-body font-medium text-black dark:text-gray-300">
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">Discord Server</a>
                               </li>
-                              <li class="mb-4">
-                                    <a href="#" class="hover:underline">Twitter</a>
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">Twitter</a>
                               </li>
-                              <li class="mb-4">
-                                    <a href="#" class="hover:underline">Facebook</a>
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">Facebook</a>
                               </li>
-                              <li class="mb-4">
-                                    <a href="#" class="hover:underline">Contact Us</a>
-                              </li>
-                              </ul>
-                        </div>
-                        <div>
-                              <h2 class="mb-6 text-sm font-semibold text-heading uppercase">Legal</h2>
-                              <ul class="text-body font-medium">
-                              <li class="mb-4">
-                                    <a href="#" class="hover:underline">Privacy Policy</a>
-                              </li>
-                              <li class="mb-4">
-                                    <a href="#" class="hover:underline">Licensing</a>
-                              </li>
-                              <li class="mb-4">
-                                    <a href="#" class="hover:underline">Terms &amp; Conditions</a>
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">Contact Us</a>
                               </li>
                               </ul>
                         </div>
                         <div>
-                              <h2 class="mb-6 text-sm font-semibold text-heading uppercase">Download</h2>
-                              <ul class="text-body font-medium">
-                              <li class="mb-4">
-                                    <a href="#" class="hover:underline">iOS</a>
+                              <h2 className="mb-6 text-sm font-semibold text-heading uppercase text-black dark:text-white">Legal</h2>
+                              <ul className="text-body font-medium text-black dark:text-gray-300">
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">Privacy Policy</a>
                               </li>
-                              <li class="mb-4">
-                                    <a href="#" class="hover:underline">Android</a>
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">Licensing</a>
                               </li>
-                              <li class="mb-4">
-                                    <a href="#" class="hover:underline">Windows</a>
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">Terms &amp; Conditions</a>
                               </li>
-                              <li class="mb-4">
-                                    <a href="#" class="hover:underline">MacOS</a>
+                              </ul>
+                        </div>
+                        <div>
+                              <h2 className="mb-6 text-sm font-semibold text-heading uppercase text-black dark:text-white">Download</h2>
+                              <ul className="text-body font-medium text-black dark:text-gray-300">
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">iOS</a>
+                              </li>
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">Android</a>
+                              </li>
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">Windows</a>
+                              </li>
+                              <li className="mb-4">
+                                    <a href="#" className="hover:underline text-black dark:text-gray-300">MacOS</a>
                               </li>
                               </ul>
                         </div>
                   </div>
-                  <div class="bg-slate-400 px-4 py-6 bg-neutral-secondary-soft md:flex md:items-center md:justify-between">
-                        <span class="text-sm text-body sm:text-center">© 2026 <a href="https://flowbite.com/">SmartLearn.AI</a>. All Rights Reserved.
+                  <div className="bg-slate-400 dark:bg-gray-800 px-4 py-6 bg-neutral-secondary-soft md:flex md:items-center md:justify-between">
+                        <span className="text-sm text-body sm:text-center text-black dark:text-white">© 2026 <a href="https://flowbite.com/">SmartLearn.AI</a>. All Rights Reserved.
                         </span>
-                        <div class="flex mt-4 sm:justify-center md:mt-0 space-x-2 rtl:space-x-reverse">
+                        <div className="flex mt-4 sm:justify-center md:mt-0 space-x-2 rtl:space-x-reverse">
                         <a href="#" class="text-body hover:text-heading">
                               <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6h.543Z" clip-rule="evenodd"/></svg>
                               <span class="sr-only">Facebook page</span>

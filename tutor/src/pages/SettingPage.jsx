@@ -164,26 +164,30 @@
 // }
 
 // export default SettingPage;
+
+
 import SideBar from "../components/SideBar";
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
+import { useTheme } from "../context/ThemeContext";
 
 function SettingPage() {
   const [active, setActive] = useState(0);
+  const { theme } = useTheme();
 
   const menuItems = ["Instructors", "Learners", "Employees"];
 
   return (
-    <div className="flex bg-gray-100 ml-10 w-full min-h-screen">
+    <div className={`flex px-9 min-h-screen transition-colors duration-300 ${theme === "dark" ? "bg-slate-950 text-slate-100" : "bg-gray-100 text-gray-900"}`}>
 
       {/* ----------------- SIDEBAR ----------------- */}
       <SideBar />
 
       {/* ----------------- MAIN PAGE ----------------- */}
-      <div className="flex-1 p-8 lg:p-14 animate-fadeIn">
+      <div className={`flex-1 p-8 lg:p-14 animate-fadeIn transition-colors duration-300 ${theme === "dark" ? "bg-slate-950 text-slate-100" : "bg-white text-gray-900"}`}>
 
         {/* TOP MENU TABS */}
-        <div className="flex border-b mb-8">
+        {/* <div className="flex border-b mb-8">
           {menuItems.map((item, index) => (
             <button
               key={index}
@@ -191,51 +195,51 @@ function SettingPage() {
               className={`px-6 py-3 text-sm font-medium transition-all duration-200
                 ${
                   active === index
-                    ? "border-b-2 border-purple-600 text-purple-700"
-                    : "text-gray-600 hover:text-black"
+                    ? `border-b-2 border-purple-600 ${theme === "dark" ? "text-purple-300" : "text-purple-700"}`
+                    : `${theme === "dark" ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-black"}`
                 }`}
             >
               {item}
             </button>
           ))}
-        </div>
+        </div> */}
 
         {/* TITLE */}
-        <h1 className="text-3xl font-semibold mb-6">Profile & Settings</h1>
+        <h1 className={`text-3xl font-semibold mb-6 ${theme === "dark" ? "text-white" : "text-gray-900"}`}>Profile & Settings</h1>
 
         {/* ----------------- MAIN CARD ----------------- */}
-        <div className="bg-white shadow-xl rounded-xl p-8 border border-gray-200">
+        <div className={`rounded-xl p-8 border shadow-xl transition-colors duration-300 ${theme === "dark" ? "bg-gray-900 border-gray-800" : "bg-white border-gray-200"}`}>
 
           {/* FORM GRID */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            <InputField label="First Name" placeholder="Nisha" />
-            <InputField label="Website" placeholder="URL" />
+            <InputField theme={theme} label="First Name" placeholder="Nisha" />
+            <InputField theme={theme} label="Website" placeholder="URL" />
 
-            <InputField label="Last Name" placeholder="Yadav" />
-            <InputField label="Facebook" placeholder="facebook.com/username" />
+            <InputField theme={theme} label="Last Name" placeholder="Yadav" />
+            <InputField theme={theme} label="Facebook" placeholder="facebook.com/username" />
 
-            <InputField label="Headline" placeholder="Instructor at Udemy" maxLength={60} />
-            <InputField label="Instagram" placeholder="instagram.com/username" />
+            <InputField theme={theme} label="Headline" placeholder="Instructor at Udemy" maxLength={60} />
+            <InputField theme={theme} label="Instagram" placeholder="instagram.com/username" />
 
           </div>
 
           {/* BIO SECTION */}
           <div className="mt-6">
-            <label className="text-gray-600 font-medium">Biography</label>
+            <label className={`font-medium ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>Biography</label>
             <textarea
               rows="5"
               placeholder="Tell us about yourself..."
-              className="input-box resize-none w-full border rounded-md px-4 py-3 mt-1 focus:ring-2 focus:ring-purple-400"
+              className={`input-box resize-none w-full border rounded-md px-4 py-3 mt-1 focus:ring-2 focus:ring-purple-400 transition-colors duration-300 ${theme === "dark" ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500" : "bg-white border-gray-300 text-black placeholder-gray-500"}`}
             ></textarea>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className={`text-xs mt-1 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
               Your biography should have at least 50 words. Links are not allowed.
             </p>
           </div>
 
           {/* SOCIAL LINKS */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            <InputField label="LinkedIn" placeholder="linkedin.com/in/username" />
+            <InputField theme={theme} label="LinkedIn" placeholder="linkedin.com/in/username" />
           </div>
 
           {/* SAVE BUTTON */}
@@ -247,12 +251,12 @@ function SettingPage() {
         </div>
 
         {/* ----------------- DELETE ACCOUNT SECTION ----------------- */}
-        <div className="mt-10 p-8 rounded-2xl bg-white/60 backdrop-blur-xl shadow-xl border border-red-300/50">
+        <div className={`mt-10 p-8 rounded-2xl backdrop-blur-xl shadow-xl border transition-colors duration-300 ${theme === "dark" ? "bg-gray-900 border-red-400/20" : "bg-white/60 border-red-300/50"}`}>
           <div className="flex items-center gap-3 text-red-600 text-xl font-semibold">
             <FaTrashAlt /> Delete Account
           </div>
 
-          <p className="text-slate-600 mt-2">
+          <p className={`mt-2 ${theme === "dark" ? "text-gray-300" : "text-slate-600"}`}>
             This action cannot be undone. Please proceed with caution.
           </p>
 
@@ -271,15 +275,15 @@ function SettingPage() {
 export default SettingPage;
 
 /* ----------------- REUSABLE INPUT FIELD COMPONENT ----------------- */
-function InputField({ label, placeholder, maxLength }) {
+function InputField({ label, placeholder, maxLength, theme }) {
   return (
     <div>
-      <label className="text-gray-600 font-medium">{label}</label>
+      <label className={`font-medium ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>{label}</label>
       <input
         type="text"
         placeholder={placeholder}
         maxLength={maxLength}
-        className="input-box w-full border rounded-md px-4 py-3 mt-1 focus:ring-2 focus:ring-purple-400"
+        className={`input-box w-full border rounded-md px-4 py-3 mt-1 focus:ring-2 focus:ring-purple-400 transition-colors duration-300 ${theme === "dark" ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500" : "bg-white border-gray-300 text-black placeholder-gray-500"}`}
       />
     </div>
   );

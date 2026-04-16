@@ -1,156 +1,159 @@
-import { Link, useParams } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
-import Api from "../services/Api.jsx";
-import axios from "axios";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-function CourseDisplay() {
-  const { id } = useParams();
-  const [coursedata, setCourseData] = useState([]);
-  const [course, setCourse] = useState(null);
-  const videoRef = useRef(null);
+const fade = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
 
-  // Fetch all courses
+export default function CoursePaymentinfo() {
+  const navigate = useNavigate();
+  const { courseId } = useParams();
+
+  const [hideVideo, setHideVideo] = useState(false);
+
+  console.log("Course ID:", courseId);
+
+  // Scroll hide video
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await Api.get("/course_display");
-      setCourseData(response.data);
-    };
-    fetchData();
+    const scroll = () => setHideVideo(window.scrollY > 550);
+    window.addEventListener("scroll", scroll);
+    return () => window.removeEventListener("scroll", scroll);
   }, []);
 
-  // Fetch single course based on ID
-  useEffect(() => {
-    setCourse(null); // loading state
+  // Course Data
+  const course = {
+    id: courseId,
+    title: "Machine Learning A-Z",
+    price: 399,
+  };
 
-    axios
-      .get(`http://localhost:8000/single_video_data/${id}`)
-      .then((res) => {
-        setCourse(res.data);
-
-        // Scroll to video
-        setTimeout(() => {
-          videoRef.current?.scrollIntoView({ behavior: "smooth" });
-        }, 300);
-      })
-      .catch((err) => console.log(err));
-  }, [id]);
-  
-  // Wait for course before rendering
-  if (!course) {
-    return <div className="text-center mt-20 text-xl">Loading course...</div>;
-  }
-
-  // Generate Signed/Public Video URL from Supabase
-  // const videoUrl = supabase.storage
-  //   .from("course_videos")
-  //   .getPublicUrl(course.video).data.publicUrl;
-  const videoUrl = course.video_url;
+  const handleBuyNow = () => {
+    navigate("/payment", { state: { course } });
+  };
 
   return (
-    <div className="w-full min-h-screen bg-gray-100">
+    <div className="min-h-screen w-full bg-white text-black font-[Inter]">
 
-      {/*HEADER */}
-      <header className="w-full fixed top-0 left-0 bg-white/70 backdrop-blur-sm shadow-sm 
-        z-50 py-3 px-5 md:px-10 flex items-center justify-between">
+      {/* HEADER */}
+      <div className="max-w-7xl mx-auto px-6 pt-24 pb-10">
+        <motion.h1
+          variants={fade}
+          initial="hidden"
+          animate="show"
+          className="text-5xl font-bold text-gray-900"
+        >
+          {course.title}
+        </motion.h1>
+      </div>
 
-        <div className="flex items-center gap-4">
-          <Link to={"/"}>
-            {/* Back button (optional) */}
-          </Link>
+      {/* MAIN */}
+      <div className="max-w-7xl mx-auto px-6 flex gap-12">
 
-          <div className="flex items-center gap-1 cursor-pointer">
-            <h2 className="text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 
-              bg-clip-text text-transparent">
-              SmartLearn
-            </h2>
-            <span className="text-xs font-bold text-gray-600">AI</span>
-          </div>
-        </div>
+        {/* LEFT CARD */}
+        <div className="w-[32%]">
+          <motion.div className="sticky top-10 w-[340px] mx-auto">
 
-        {/* Course Title */}
-        <h1 className="hidden md:block text-lg font-semibold text-gray-900 truncate max-w-[400px]">
-          {course.course_title}
-        </h1>
+            <div className="rounded-2xl bg-[#f6f6f6] border border-black/10 shadow-lg overflow-hidden">
 
-        {/* Instructor */}
-        <div className="flex items-center gap-3 hover:bg-gray-100 px-3 py-1 rounded-lg transition">
-          <img
-            src="/images/author_logo.png"
-            className="w-10 h-10 rounded-full border shadow"
-          />
-          <div>
-            <p className="text-sm font-semibold">{course.author}</p>
-            <p className="text-xs text-gray-500">Instructor</p>
-          </div>
-        </div>
-      </header>
+              {/* VIDEO */}
+              {!hideVideo && (
+                <img
+                  src="https://img-c.udemycdn.com/course/750x422/950390_270f_3.jpg"
+                  className="w-full"
+                />
+              )}
 
-      {/* PAGE CONTENT */}
-      <div className="mx-auto max-w-6xl pt-28 px-4 md:px-8 pb-16 space-y-10">
+              {/* PAYMENT */}
+              <div className="p-6 space-y-5">
+                <h2 className="text-3xl font-bold text-purple-600">
+                  ₹{course.price}
+                </h2>
 
-        {/* Video Player */}
-        <div ref={videoRef} className="w-full bg-black rounded-xl shadow overflow-hidden">
-          <video className="w-full h-[260px] md:h-[480px] object-cover" controls>
-            <source src={videoUrl} type="video/mp4" />
-          </video>
-        </div>
+                <button
+                  onClick={handleBuyNow}
+                  className="w-full bg-purple-600 text-white py-3 rounded-xl font-semibold hover:bg-purple-700 transition"
+                >
+                  Buy Now
+                </button>
+              </div>
 
-        {/* Course Details */}
-        <div className="bg-white rounded-xl shadow p-6 md:p-8 space-y-6">
-
-          <div className="flex justify-between items-center border-b pb-5 flex-wrap gap-4">
-            <div>
-              <h2 className="text-xl font-bold text-gray-900">{course.author}</h2>
-              <p className="text-sm text-gray-600">{course.course_date}</p>
             </div>
-            <button className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 
-              text-white rounded-full font-semibold shadow hover:opacity-90">
-              ₹{course.course_price}
-            </button>
-          </div>
-
-          <div>
-            <h3 className="text-2xl font-semibold mb-2 text-gray-900">About this Course</h3>
-            <p className="text-gray-700 leading-relaxed">
-              You learn in this course: {course.tag}
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              {course.description}
-            </p>
-          </div>
+          </motion.div>
         </div>
 
-        {/* More Courses */}
-        <div className="bg-white rounded-xl shadow p-6 space-y-6">
-          <h3 className="text-xl font-semibold text-gray-900">More Courses</h3>
+        {/* RIGHT CONTENT */}
+        <div className="w-[60%] space-y-10">
 
-          {coursedata
-            .filter((c) => c.course_id !== Number(id))
-            .map((data) => (
-              <Link
-                to={`/coursedisplay/${data.course_id}`}
-                key={data.course_id}
-                className="block bg-white shadow-md rounded-xl overflow-hidden hover:shadow-xl transition"
+          {/* STATS */}
+          <motion.div
+            variants={fade}
+            initial="hidden"
+            whileInView="show"
+            className="flex gap-10 bg-[#f6f6f6] p-6 rounded-xl border border-black/10 shadow-sm"
+          >
+            <div>
+              <p className="text-3xl font-bold text-red-500">4.7 ⭐</p>
+              <p className="text-sm text-gray-600">250k+ Ratings</p>
+            </div>
+
+            <div>
+              <p className="text-3xl font-bold">1.4M</p>
+              <p className="text-sm text-gray-600">Learners</p>
+            </div>
+          </motion.div>
+
+          {/* WHAT YOU’LL LEARN */}
+          <motion.div
+            variants={fade}
+            initial="hidden"
+            whileInView="show"
+            className="bg-[#f6f6f6] p-6 rounded-xl border border-black/10 shadow-sm"
+          >
+            <h2 className="text-xl font-semibold mb-4 text-gray-900">
+              What You’ll Learn
+            </h2>
+
+            <div className="grid grid-cols-2 gap-3 text-sm text-gray-700">
+              {[ 
+                "ML models",
+                "Deep Learning",
+                "Python",
+                "Projects",
+                "AI tools",
+                "Pipelines",
+                "Tuning",
+                "Deployment"
+              ].map((item, i) => (
+                <p key={i}>✔ {item}</p>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* SECTIONS */}
+          <div>
+            <h2 className="text-xl font-semibold mb-4 text-gray-900">
+              Course Sections
+            </h2>
+
+            {Array.from({ length: 5 }).map((_, i) => (
+              <motion.div
+                key={i}
+                variants={fade}
+                initial="hidden"
+                whileInView="show"
+                className="bg-[#f6f6f6] p-4 mb-3 rounded-lg border border-black/10 shadow-sm"
               >
-                <div className="flex gap-4 hover:bg-gray-50 p-3 rounded-lg transition">
-                  <div className="w-32 h-20 md:w-40 md:h-28 bg-gray-200 rounded-lg overflow-hidden">
-                    <img src={`https://rwompwlcjbigfbnovqxu.supabase.co/storage/v1/object/public/course_thumbnail/${data.thumbnail}`} className="w-full h-full object-cover" />
-                  </div>
-
-                  <div className="flex flex-col justify-between flex-1">
-                    <h4 className="text-sm font-semibold text-gray-900">{data.course_title}</h4>
-                    <p className="text-xs text-gray-600">Skill Level: {data.skill_level}</p>
-                    <p className="text-xs text-gray-600">{data.course_date}</p>
-                  </div>
-                  
-                  <div className="text-gray-600 text-xl">⋮</div>
-                </div>
-              </Link>
+                Section {i + 1}
+              </motion.div>
             ))}
+          </div>
+
         </div>
       </div>
     </div>
   );
 }
 
-export default CourseDisplay;
+

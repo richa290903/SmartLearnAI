@@ -1,196 +1,264 @@
-// import React from "react";
-// import { motion } from "framer-motion";
-//  function CoursePaymentinfo() {
-//   return (
-//     <div className="bg-gray-900 text-white min-h-screen">
-
-// <motion.div
-//   initial={{ opacity: 0, y: 40 }}
-//   animate={{ opacity: 1, y: 0 }}
-//   transition={{ duration: 0.6 }}
-// >
-
-//   {/* Your content */}
-
-//       {/* Navbar */}
-//       <div className="bg-gray-800 p-4 flex justify-between items-center">
-//         <h1 className="text-xl font-bold">MyCourses</h1>
-//         <input
-//           type="text"
-//           placeholder="Search..."
-//           className="px-3 py-1 rounded bg-gray-700 outline-none"
-//         />
-//       </div>
-
-//       {/* Hero Section */}
-//       <div className="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-8">
-
-//         {/* LEFT CONTENT */}
-//         <div className="md:col-span-2 space-y-4">
-
-//           <p className="text-sm text-blue-400">Development &gt; Data Science</p>
-
-//           <h1 className="text-3xl md:text-4xl font-bold">
-//             Machine Learning A-Z: AI, Python & R + ChatGPT Prize [2026]
-//           </h1>
-
-//           <p className="text-gray-300">
-//             Learn to create Machine Learning Algorithms in Python & R from top Data Science experts.
-//           </p>
-
-//           {/* Rating */}
-//           <div className="flex items-center gap-2">
-//             <span className="text-yellow-400 font-bold">4.5 ★</span>
-//             <span className="text-gray-400">(100,000 students)</span>
-//           </div>
-
-//           {/* Buttons */}
-//           <div className="flex gap-4 mt-4">
-//             <button className="bg-blue-600 px-5 py-2 rounded hover:bg-blue-700 transition">
-//               Bestseller
-//             </button>
-//             <button className="border px-5 py-2 rounded hover:bg-gray-700 transition">
-//               Wishlist
-//             </button>
-//           </div>
-//         </div>
-
-//         {/* RIGHT CARD */}
-//         <div className="bg-white text-black rounded-xl shadow-lg p-4">
-
-//           {/* Video Preview */}
-//           <div className="relative">
-//             <img
-//               src="https://img-c.udemycdn.com/course/750x422/950390_270f_3.jpg"
-//               alt="course"
-//               className="rounded-lg"
-//             />
-//             <button className="absolute inset-0 flex items-center justify-center">
-//               <div className="bg-black bg-opacity-60 p-4 rounded-full">
-//                 ▶
-//               </div>
-//             </button>
-//           </div>
-
-//           {/* Price */}
-//           <h2 className="text-2xl font-bold mt-4">₹400</h2>
-
-//           {/* Button */}
-//           <button className="w-full bg-purple-600 text-white py-2 rounded mt-3 hover:bg-purple-700 transition">
-//             Buy Now
-//           </button>
-
-//           <p className="text-sm text-gray-600 mt-2 text-center">
-//             30-Day Money-Back Guarantee
-//           </p>
-//         </div>
-//       </div>
-//       </motion.div>
-//     </div>
-//   );
-// }export default CoursePaymentinfo;
-
-import React from "react";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { BsSunFill, BsMoonStarsFill } from "react-icons/bs";
+import Api from "../services/Api";
 
-export default function CoursePage() {
+const fade = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+export default function CoursePaymentinfo() {
+  const navigate = useNavigate();
+  const { course_id } = useParams();
+
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
+  const [hideVideo, setHideVideo] = useState(false);
+
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+ 
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        const response = await Api.get(`/single_video_data/${course_id}`);
+        setCourse(response.data);
+      } catch (err) {
+        setError("Failed to load course details");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (course_id) {
+      fetchCourse();
+    } else {
+      setError("Invalid course ID");
+      setLoading(false);
+    }
+  }, [course_id]);
+
+ 
+  useEffect(() => {
+    const handleScroll = () => setHideVideo(window.scrollY > 550);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleBuyNow = () => {
+    navigate("/payment", { state: { course } });
+  };
+
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0a0a0a]">
+        <p className="text-gray-600 dark:text-gray-300 text-lg">Loading course...</p>
+      </div>
+    );
+  }
+
+  // ✅ ERROR STATE
+  if (error || !course) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0a0a0a]">
+        <p className="text-red-500 text-lg">{error || "Course not found"}</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-gray-900 text-white min-h-screen">
+    <div className="min-h-screen w-full bg-white dark:bg-[#0a0a0a]   text-black dark:text-white font-[Inter] transition-colors duration-300">
+      {/* HEADER */}
+      <div className="max-w-7xl mx-auto px-6 pt-24 pb-10">
+        <motion.h1
+          variants={fade}
+          initial="hidden"
+          animate="show"
+          className="text-4xl md:text-6xl font-black leading-tight tracking-tight"
+        >
+          {course.course_title}
+          <span className="block text-xl md:text-3xl font-light text-gray-600 dark:text-gray-400 mt-2">
+            {course.category} • {course.skill_level}
+          </span>
+        </motion.h1>
 
-      {/* Navbar */}
-      <div className="bg-gray-800 p-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold">MyCourses</h1>
-        <input
-          type="text"
-          placeholder="Search..."
-          className="px-3 py-1 rounded bg-gray-700 outline-none"
-        />
+        <motion.p
+          variants={fade}
+          initial="hidden"
+          animate="show"
+          className="text-gray-700 dark:text-gray-300 mt-4 text-base md:text-lg max-w-3xl"
+        >
+          {course.description}
+        </motion.p>
       </div>
 
-      {/* MAIN SECTION */}
-      <div className="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-8">
+      {/* MAIN LAYOUT */}
+      <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-12 -mt-4">
 
-        {/* LEFT SIDE */}
-        <motion.div
-          className="md:col-span-2 space-y-4"
-          initial={{ opacity: 0, x: -40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          {/* Breadcrumb */}
-          <p className="text-sm text-blue-400">
-            Development &gt; Data Science &gt; Machine Learning
-          </p>
+        {/* LEFT SIDE PAYMENT CARD */}
+        <div className="w-full lg:w-[32%]">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="sticky top-10 w-full max-w-xs mx-auto lg:mx-0"
+          >
+            <div className="rounded-2xl bg-gray-100/70 dark:bg-[#0f0f14]/70 
+                            border border-black/10 dark:border-white/10 
+                            backdrop-blur-xl shadow-2xl overflow-hidden transition-colors duration-300">
 
-          {/* Title */}
-          <h1 className="text-3xl md:text-4xl font-bold leading-snug">
-            Machine Learning A-Z: AI, Python & R + ChatGPT Prize [2026]
-          </h1>
+              {/* VIDEO THUMBNAIL */}
+              <motion.div
+                initial={{ opacity: 1 }}
+                animate={{
+                  opacity: hideVideo ? 0 : 1,
+                  height: hideVideo ? 0 : "auto"
+                }}
+                transition={{ duration: 0.4 }}
+                className="overflow-hidden"
+              >
+                <div className="relative">
+                  <img
+                    src={course.thumbnail_url || "/images/default.png"}
+                    alt={course.course_title}
+                    className="w-full h-56 object-cover brightness-90 hover:brightness-110 duration-300"
+                  />
+                  <motion.div
+                    initial={{ scale: 0.6, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    <div className="bg-white/20 backdrop-blur-xl p-6 rounded-full 
+                                  border border-white/30 shadow-xl 
+                                  text-3xl text-white hover:scale-110 duration-300 cursor-pointer">
+                      ▶
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
 
-          {/* Description */}
-          <p className="text-gray-300 text-lg">
-            Learn to create Machine Learning Algorithms in Python and R from scratch.
-            Master Data Science step by step.
-          </p>
+              {/* PAYMENT BOX */}
+              <div className="p-6 space-y-5">
+                <h2 className="text-3xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-400 text-transparent bg-clip-text">
+                  ₹{course.course_price}
+                </h2>
 
-          {/* Rating */}
-          <div className="flex items-center gap-2 text-sm">
-            <span className="text-yellow-400 font-bold">4.5 ★</span>
-            <span className="text-blue-400 underline cursor-pointer">
-              120,000 ratings
-            </span>
-            <span className="text-gray-400">(500,000 students)</span>
-          </div>
+                <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                  <li>✔ Full lifetime access</li>
+                  <li>✔ Premium course content</li>
+                  <li>✔ Certificate of completion</li>
+                  <li>✔ 24/7 access anytime</li>
+                </ul>
 
-          {/* Instructor */}
-          <p className="text-sm text-gray-300">
-            Created by{" "}
-            <span className="text-blue-400 underline cursor-pointer">
-              John Doe
-            </span>
-          </p>
-
-          {/* Extra Info */}
-          <div className="flex flex-wrap gap-4 text-sm text-gray-400">
-            <span>🕒 Last updated 3/2026</span>
-            <span>🌐 English</span>
-          </div>
-        </motion.div>
-
-        {/* RIGHT SIDE CARD */}
-        <motion.div
-          className="bg-white text-black rounded-xl shadow-lg p-4 h-fit md:sticky md:top-20"
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-
-          {/* Video Preview */}
-          <div className="relative">
-            <img
-              src="https://img-c.udemycdn.com/course/750x422/950390_270f_3.jpg"
-              alt="course"
-              className="rounded-lg"
-            />
-            <button className="absolute inset-0 flex items-center justify-center">
-              <div className="bg-black bg-opacity-60 p-4 rounded-full text-white text-xl">
-                ▶
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleBuyNow}
+                  className="w-full bg-gradient-to-r from-purple-500 to-cyan-500 text-white py-3 rounded-xl 
+                           font-semibold shadow-lg hover:shadow-purple-500/40 duration-300 transition-all"
+                >
+                  Proceed to Pay
+                </motion.button>
               </div>
-            </button>
-          </div>
 
-          {/* Price */}
-          <h2 className="text-2xl font-bold mt-4">₹400</h2>
+            </div>
+          </motion.div>
+        </div>
 
-          {/* Buy Button */}
-          <button className="w-full bg-purple-600 text-white py-2 rounded mt-3 hover:bg-purple-700 transition">
-            Buy Now
-          </button>
+        {/* RIGHT SIDE CONTENT */}
+        <div className="w-full lg:w-[60%] space-y-12">
 
-          <p className="text-sm text-gray-600 mt-2 text-center">
-            30-Day Money-Back Guarantee
-          </p>
-        </motion.div>
+          {/* COURSE INFO */}
+          <motion.div
+            variants={fade}
+            initial="hidden"
+            whileInView="show"
+            className="flex flex-col sm:flex-row gap-10 bg-gray-100 dark:bg-[#141414] p-6 rounded-xl shadow-lg 
+                     border border-black/10 dark:border-white/10 transition-colors duration-300"
+          >
+            <div>
+              <p className="text-4xl font-black text-purple-500">⭐ 4.7</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">250k+ Ratings</p>
+            </div>
+            <div>
+              <p className="text-4xl font-black text-gray-900 dark:text-gray-100">1.4M</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">Learners</p>
+            </div>
+            <div>
+              <p className="text-2xl font-black text-cyan-500">{course.skill_level}</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">Skill Level</p>
+            </div>
+          </motion.div>
+
+          {/* COURSE DESCRIPTION */}
+          <motion.div
+            variants={fade}
+            initial="hidden"
+            whileInView="show"
+            className="bg-gray-100 dark:bg-[#141414] p-8 rounded-xl 
+                     border border-black/10 dark:border-white/10 shadow-xl 
+                     transition-colors duration-300"
+          >
+            <h2 className="text-3xl font-bold mb-4">About This Course</h2>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+              {course.description}
+            </p>
+          </motion.div>
+
+          {/* PREREQUISITES */}
+          <motion.div
+            variants={fade}
+            initial="hidden"
+            whileInView="show"
+            className="bg-gray-100 dark:bg-[#141414] p-8 rounded-xl 
+                     border border-black/10 dark:border-white/10 shadow-xl 
+                     transition-colors duration-300"
+          >
+            <h2 className="text-2xl font-bold mb-4">Prerequisites</h2>
+            <p className="text-gray-700 dark:text-gray-300">
+              {course.prerequisites || "No specific prerequisites required"}
+            </p>
+          </motion.div>
+
+          {/* WHAT YOU'LL LEARN */}
+          <motion.div
+            variants={fade}
+            initial="hidden"
+            whileInView="show"
+            className="bg-gray-100 dark:bg-[#141414] p-8 rounded-xl 
+                     border border-black/10 dark:border-white/10 shadow-xl 
+                     transition-colors duration-300"
+          >
+            <h2 className="text-2xl font-bold mb-6">What You'll Learn</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300 text-sm">
+              {course.tag?.split(",").slice(0, 8).map((tag, i) => (
+                <motion.p
+                  key={i}
+                  whileHover={{ x: 6 }}
+                  className="flex items-center gap-2"
+                >
+                  <span className="text-purple-500">✓</span> {tag.trim()}
+                </motion.p>
+              ))}
+            </div>
+          </motion.div>
+
+        </div>
       </div>
     </div>
   );

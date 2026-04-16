@@ -262,17 +262,17 @@ function Profilesection1() {
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
       <div className="w-64">
         <Sidebar1 />
       </div>
 
       <div className="flex-1 p-10 flex justify-center items-center">
-        <div className="bg-white shadow-2xl rounded-3xl p-10 w-full max-w-4xl">
+        <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-3xl p-10 w-full max-w-4xl">
 
           {/* Header */}
           <div className="flex justify-between mb-8">
-            <h2 className="text-2xl font-bold">Profile Information</h2>
+            <h2 className="text-2xl font-bold text-black dark:text-white">Profile Information</h2>
 
             {!isEditing ? (
               <button onClick={() => setIsEditing(true)} className="bg-indigo-500 text-white px-6 py-2 rounded-full">Edit </button>

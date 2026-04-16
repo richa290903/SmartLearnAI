@@ -51,20 +51,20 @@ import React from "react";
 ];
 
 const CourseCard = ({ course }) => (
-  <div className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-xl transition duration-300 cursor-pointer">
+  <div className="bg-white dark:bg-gray-800 shadow-md rounded-xl overflow-hidden hover:shadow-xl transition duration-300 cursor-pointer">
     <img src={course.image} alt={course.title} className="w-full h-40 object-cover"></img>
-      <h3 className="font-semibold text-gray-800 text-sm">{course.title}</h3>
+      <h3 className="font-semibold text-gray-800 dark:text-white text-sm">{course.title}</h3>
       <span className="font-bold text-yellow-600">{course.rating} ⭐</span>
     <div className="p-4 space-y-2">
-      <p className="text-gray-500 text-xs">{course.author}</p>
+      <p className="text-gray-500 dark:text-gray-400 text-xs">{course.author}</p>
 
       <div className="flex items-center gap-2 text-sm">
-        <span className="text-gray-500">({course.students})</span>
+        <span className="text-gray-500 dark:text-gray-400">({course.students})</span>
       </div>
 
-      <div className="flex items-center gap-2 font-semibold text-gray-900">
+      <div className="flex items-center gap-2 font-semibold text-gray-900 dark:text-white">
         <span>{course.price}</span>
-        <span className="line-through text-gray-400 text-xs">{course.oldPrice}</span>
+        <span className="line-through text-gray-400 dark:text-gray-500 text-xs">{course.oldPrice}</span>
       </div>
 
       <div className="flex gap-2">
@@ -83,18 +83,18 @@ const CourseCard = ({ course }) => (
 
  function Course() {
   return (
-    <div className="px-8 py-10">
+    <div className="px-8 py-10 bg-white dark:bg-gray-900 min-h-screen">
       {/* Page Header */}
-      <h1 className="text-3xl font-bold">Web Development Courses</h1>
+      <h1 className="text-3xl font-bold text-black dark:text-white">Web Development Courses</h1>
 
-      <p className="text-gray-600 mt-2">
+      <p className="text-gray-600 dark:text-gray-300 mt-2">
         Explore courses from experienced, real-world experts.
       </p>
 
       {/* Tabs */}
-      <div className="flex gap-6 mt-6 border-b pb-2">
-        <button className="font-semibold border-b-2 border-black">Most Popular</button>
-        <button className="text-gray-500 hover:text-black transition">Trending</button>
+      <div className="flex gap-6 mt-6 border-b border-gray-200 dark:border-gray-700 pb-2">
+        <button className="font-semibold border-b-2 border-black dark:border-white text-black dark:text-white">Most Popular</button>
+        <button className="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition">Trending</button>
       </div>
 
       {/* Courses Grid */}

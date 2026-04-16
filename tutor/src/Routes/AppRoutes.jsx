@@ -7,6 +7,7 @@ import SettingPage from "../pages/SettingPage";
 import Dashboard from "../pages/Dashboard";
 import CourseDatail from "../pages/CourseDatail";
 import Student from "../pages/Student";
+import ModuleUpload  from "../pages/ModuleUpload";
 
 function AppRoutes() {
   return (
@@ -19,6 +20,7 @@ function AppRoutes() {
         <Route path="/settingpage" element={<SettingPage/>}></Route>
         <Route path="/dashboard" element={<Dashboard/>}></Route>
         <Route path="/student" element={<Student/>}></Route>
+        <Route path="/module/:course_id" element={<ModuleUpload />} />
       </Routes>
   );
 }

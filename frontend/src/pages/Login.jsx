@@ -72,33 +72,33 @@ navigate(`/profile/${studentRes.data.stud_id}`)
           />
 
           <motion.div
-            className="relative bg-white w-[380px] rounded-lg shadow-xl p-6 z-10"
+            className="relative bg-white dark:bg-gray-800 w-[380px] rounded-lg shadow-xl p-6 z-10"
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ duration: 0.35, ease: "easeOut" }}
           >
             <div className="text-center mb-4">
-              <h1 className="text-2xl font-bold text-gray-800">Welcome Back</h1>
-              <p className="text-sm text-gray-500">Please login to your account</p>
+              <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Welcome Back</h1>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Please login to your account</p>
             </div>
 
             <form onSubmit={handleLogin}>
               <div className="mb-4">
-                <label className="block text-sm mb-1">Email</label>
+                <label className="block text-sm mb-1 text-black dark:text-white">Email</label>
                 <input
                   type="text"
-                  className="w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-gray-700 text-black dark:text-white"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
               <div className="mb-4">
-                <label className="block text-sm mb-1">Password</label>
+                <label className="block text-sm mb-1 text-black dark:text-white">Password</label>
                 <input
                   type="password"
-                  className="w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-gray-700 text-black dark:text-white"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -109,9 +109,9 @@ navigate(`/profile/${studentRes.data.stud_id}`)
               </button>
             </form>
 
-            <p className="text-sm text-center mt-4">
+            <p className="text-sm text-center mt-4 text-black dark:text-white">
               Don’t have an account?
-              <Link to="/registration" className="text-blue-600 ml-1 hover:underline">
+              <Link to="/registration" className="text-blue-600 dark:text-blue-400 ml-1 hover:underline">
                 Register here
               </Link>
             </p>

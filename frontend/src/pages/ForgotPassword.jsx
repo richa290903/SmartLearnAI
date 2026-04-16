@@ -42,7 +42,7 @@ function ForgotPassword() {
 
         {/* Modal */}
         <motion.div
-          className="relative bg-white w-[450px] rounded-xl shadow-2xl p-6 z-10"
+          className="relative bg-white dark:bg-gray-800 w-[450px] rounded-xl shadow-2xl p-6 z-10"
           initial={{ y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 80, opacity: 0 }}

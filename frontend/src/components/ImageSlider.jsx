@@ -78,18 +78,18 @@ function ImageSlider() {
         ))}
       </div>
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-white">
+      <div className="absolute inset-0 bg-black/50 dark:bg-black/70 flex flex-col justify-center items-center text-white">
         <h1 className="text-4xl font-bold">
           Log in to personalize your learning journey
         </h1>
-        <Link to="/login" className="mt-4 bg-slate-400 py-2 px-8 rounded-lg font-semibold text-lg" >Get Started</Link>
+        <Link to="/login" className="mt-4 bg-slate-400 dark:bg-slate-500 py-2 px-8 rounded-lg font-semibold text-lg" >Get Started</Link>
       </div>
 
       {/* Left */}
-      <button onClick={safePrev} className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/70 p-3 rounded-full">◀</button>
+      <button onClick={safePrev} className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/70 dark:bg-gray-800/70 p-3 rounded-full text-black dark:text-white">◀</button>
 
       {/* Right */}
-      <button onClick={safeNext} className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/70 p-3 rounded-full"> ▶</button>
+      <button onClick={safeNext} className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/70 dark:bg-gray-800/70 p-3 rounded-full text-black dark:text-white"> ▶</button>
     </div>
   );
 }

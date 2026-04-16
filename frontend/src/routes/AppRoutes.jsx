@@ -16,7 +16,11 @@ import Analyticssession1 from "../pages/Analyticssection1";
 import CourseDisplay from "../pages/CourseDisplay";
 import AllCourses from "../pages/AllCourses";
 import CoursePaymentinfo from "../pages/coursePaymentinfo";
-
+import Payment from "../pages/Payment";
+import ThemeTest from "../pages/ThemeTest";
+import Invoice from "../pages/invoice";
+import PaymentSuccess from "../pages/paymentsuccess";
+import MyCourses from "../pages/My_course";
 function AppRoutes(){
       return(
                   <Routes>
@@ -38,9 +42,14 @@ function AppRoutes(){
                         {/* <Route path="/profilesection" element={<Profilesection1/>}></Route> */}
                         <Route path="/profilesection/:stud_id" element={<Profilesection1/>}></Route>
                         <Route path="/coursepage" element={<CoursesPage1/>}></Route>
+                        <Route path="/payment" element={<Payment/>}></Route>
                         <Route path="/analyticspage" element={<Analyticssession1/>}></Route>
-                        <Route path="/coursepaymentinfo" element={<CoursePaymentinfo/>}></Route>
+                        <Route path="/coursepaymentinfo/:course_id" element={<CoursePaymentinfo/>}></Route>
+                        <Route path="/themetest" element={<ThemeTest/>}></Route>
+                        <Route path="/invoice" element={<Invoice/>}></Route>
+                        <Route path="/my_course" element={<MyCourses/>}></Route>
+                        <Route path="/paymentsuccess" element={<PaymentSuccess/>}></Route>
                   </Routes>    
       )
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 export default AppRoutes;

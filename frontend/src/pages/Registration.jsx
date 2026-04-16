@@ -124,7 +124,7 @@ function Registration() {
         {/* Modal */}
         <div
           className={`
-            relative bg-white w-[380px] rounded-lg shadow-xl p-6
+            relative bg-white dark:bg-gray-800 w-[380px] rounded-lg shadow-xl p-6
             transform transition-all duration-300 ease-out
             ${
               open
@@ -135,8 +135,8 @@ function Registration() {
         >
           {/* Header */} 
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">Registration</h2>
-            <button onClick={handleClose} className="text-gray-500 text-xl">
+            <h2 className="text-xl font-semibold text-black dark:text-white">Registration</h2>
+            <button onClick={handleClose} className="text-gray-500 dark:text-gray-400 text-xl">
             </button>
           </div> 
 
@@ -147,7 +147,8 @@ function Registration() {
               <input
                 type="text"
                 placeholder="Enter username"
-                className="w-full border rounded-md px-3 py-2
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2
+                bg-white dark:bg-gray-700 text-black dark:text-white
                 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={fullname} onChange={(e)=>setfullname(e.target.value)}
               />
@@ -203,9 +204,9 @@ function Registration() {
           </button>
         </form>
 
-          <p className="text-sm text-center mt-4">
+          <p className="text-sm text-center mt-4 text-black dark:text-white">
             Already have an account?
-            <Link to="/login" className="text-blue-600 ml-1 hover:underline">
+            <Link to="/login" className="text-blue-600 dark:text-blue-400 ml-1 hover:underline">
               Login
             </Link>
           </p>
